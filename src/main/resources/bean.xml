@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="accountService" class="bankmanage.service.impl.AccountService">
+        <property name="accountDao" ref="accountDao"> </property>
+        <property name="transActionManager" ref="transActionManager"> </property>
+    </bean>
+
+    <bean id="accountDao" class="bankmanage.dao.impl.AccountDao">
+        <property name="queryRunner" ref="queryRunner"> </property>
+        <property name="connectionUtil" ref="connectionUtil"> </property>
+    </bean>
+
+    <bean id="transActionManager" class="bankmanage.utils.TransActionManager">
+        <property name="connectionUtil" ref="connectionUtil"> </property>
+    </bean>
+
+    <bean id="queryRunner" class="org.apache.commons.dbutils.QueryRunner">
+
+    </bean>
+
+    <bean id="connectionUtil" class="bankmanage.utils.ConnectionUtil">
+        <property name="dataSource" ref="dataSource"> </property>
+    </bean>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"> </property>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/mysql?serverTimezone=GMT"> </property>
+        <property name="user" value="root"> </property>
+        <property name="password" value="123456"> </property>
+    </bean>
+
+
+</beans>
